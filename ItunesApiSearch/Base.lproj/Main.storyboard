@@ -83,7 +83,7 @@
                                             <segue destination="6su-9L-6wq" kind="show" identifier="ShowDetail" id="niB-7z-WsT"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NoEncontradoCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jzp-yp-cO4" customClass="NoEncontradoTableViewCell" customModule="ItunesApiSearch" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NoEncontradoCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoEncontradoCell" id="jzp-yp-cO4" customClass="NoEncontradoTableViewCell" customModule="ItunesApiSearch" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="118" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jzp-yp-cO4" id="4Tz-Ky-kOa">
@@ -102,6 +102,9 @@
                                                 <constraint firstItem="iaW-Da-xjR" firstAttribute="centerY" secondItem="4Tz-Ky-kOa" secondAttribute="centerY" id="sE7-eb-4bb"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textoNoEncontrado" destination="iaW-Da-xjR" id="iij-cN-Bnp"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

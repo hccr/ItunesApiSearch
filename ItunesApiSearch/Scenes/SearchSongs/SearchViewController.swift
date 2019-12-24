@@ -27,6 +27,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
   var router: (NSObjectProtocol & SearchRoutingLogic & SearchDataPassing)?
     
   var displayedSongs: [Song] = []
+    var searchedText = "";
 
   // MARK: Object lifecycle
   
@@ -99,9 +100,11 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
         return 72
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-      return displayedSongs.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        if displayedSongs.count>0{
+            return displayedSongs.count
+        }
+      return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -110,6 +113,8 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoEncontradoCell") as?NoEncontradoTableViewCell else {
                 return UITableViewCell();
             }
+            
+            cell.textoNoEncontrado.text = (searchedText.count>2) ? "Término no encontrado":"Inicia una búsqueda, ingresa 3 o más letras"
             return cell
         }else{
             let result = displayedSongs[indexPath.row]
@@ -125,6 +130,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchedText = searchText
         guard let query = searchBar.text, query != "", query.count>2 else {
             displayedSongs = []
             tableView.reloadData()

@@ -10,6 +10,7 @@ import UIKit
 
 class NoEncontradoTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var textoNoEncontrado: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
