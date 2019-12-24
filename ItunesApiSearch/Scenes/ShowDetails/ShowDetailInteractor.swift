@@ -12,32 +12,35 @@
 
 import UIKit
 
-protocol ShowDetailBusinessLogic
-{
-  func getDetails(request: ShowDetail.GetDetails.Request)
+protocol ShowDetailBusinessLogic{
+    func getDetails(request: ShowDetail.GetDetails.Request)
+    func getSongList(request: ShowDetail.GetSongList.Request)
 }
 
-protocol ShowDetailDataStore
-{
-   var song: Song! { get set }
+protocol ShowDetailDataStore{
+    var song: Song! { get set }
+    var songs: [Song]!{ get set }
 }
 
-class ShowDetailInteractor: ShowDetailBusinessLogic, ShowDetailDataStore
-{
-  var presenter: ShowDetailPresentationLogic?
-  var worker: ShowDetailWorker?
-  var song: Song!
-  
-  // MARK: Do something
-  
-  func getDetails(request: ShowDetail.GetDetails.Request)
-  {
-    worker = ShowDetailWorker()
-    worker?.obtenerCancionesAlmbum()
-   
+class ShowDetailInteractor: ShowDetailBusinessLogic, ShowDetailDataStore{
+    var presenter: ShowDetailPresentationLogic?
+    var worker: ShowDetailWorker?
+    var song: Song!
+    var songs: [Song]!
     
-    let response = ShowDetail.GetDetails.Response(song: song)
-    presenter?.presentDetails(response: response)
-     
-  }
+    // MARK: Do something
+    
+    func getDetails(request: ShowDetail.GetDetails.Request){
+        worker = ShowDetailWorker()
+        let response = ShowDetail.GetDetails.Response(song: song)
+        presenter?.presentDetails(response: response)
+    }
+    
+    func getSongList(request: ShowDetail.GetSongList.Request){
+        worker?.getSongList(song.collectionId!, completion: { (results) -> Void in
+            self.songs = results!
+            let response = ShowDetail.GetSongList.Response(songs: self.songs)
+            self.presenter?.presentSongList(response: response)
+        })
+    }
 }

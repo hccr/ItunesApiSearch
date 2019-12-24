@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol ShowDetailRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToShowDetail(segue: UIStoryboardSegue?)
 }
 
 protocol ShowDetailDataPassing
@@ -27,34 +27,34 @@ class ShowDetailRouter: NSObject, ShowDetailRoutingLogic, ShowDetailDataPassing
   weak var viewController: ShowDetailViewController?
   var dataStore: ShowDetailDataStore?
   
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: ShowDetailViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: ShowDetailDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+ func routeToShowDetail(segue: UIStoryboardSegue?)
+ {
+     if let segue = segue {
+         let destinationVC = segue.destination as! ShowDetailViewController
+         var destinationDS = destinationVC.router!.dataStore!
+         passDataToShowDetail(source: dataStore!, destination: &destinationDS)
+     } else {
+         let destinationVC = viewController?.storyboard?.instantiateViewController(withIdentifier: "ShowDetailViewController") as! ShowDetailViewController
+         var destinationDS = destinationVC.router!.dataStore!
+         passDataToShowDetail(source: dataStore!, destination: &destinationDS)
+         navigateToShowDetail(source: viewController!, destination: destinationVC)
+     }
+ }
+ 
+ // MARK: Navigation
+ 
+ func navigateToShowDetail(source: ShowDetailViewController, destination: ShowDetailViewController)
+ {
+     source.show(destination, sender: nil)
+ }
+ 
+ 
+ // MARK: Passing data
+ 
+ 
+ func passDataToShowDetail(source: ShowDetailDataStore, destination: inout ShowDetailDataStore)
+ {
+     let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
+    destination.song = source.songs[selectedRow!]
+ }
 }

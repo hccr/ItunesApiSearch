@@ -17,15 +17,16 @@ import AVKit
 protocol ShowDetailDisplayLogic: class
 {
     func displayDetails(viewModel: ShowDetail.GetDetails.ViewModel)
+    func displaySongList(viewModel: ShowDetail.GetSongList.ViewModel)
 }
 
-class ShowDetailViewController: UIViewController, ShowDetailDisplayLogic
-{
+class ShowDetailViewController: UIViewController, ShowDetailDisplayLogic, UITableViewDataSource, UITableViewDelegate{
     var interactor: ShowDetailBusinessLogic?
     var router: (NSObjectProtocol & ShowDetailRoutingLogic & ShowDetailDataPassing)?
     var previewUrl: String?
     var artWorkUrl:String?
     
+    var albumSongs:[Song] = []
     
     // MARK: Object lifecycle
     
@@ -59,8 +60,7 @@ class ShowDetailViewController: UIViewController, ShowDetailDisplayLogic
     
     // MARK: Routing
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
             if let router = router, router.responds(to: selector) {
@@ -86,6 +86,7 @@ class ShowDetailViewController: UIViewController, ShowDetailDisplayLogic
     @IBOutlet weak var nombreCancion: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     
     
     
@@ -111,6 +112,10 @@ class ShowDetailViewController: UIViewController, ShowDetailDisplayLogic
     {
         let request = ShowDetail.GetDetails.Request()
         interactor?.getDetails(request: request)
+        
+        
+        let requestSongList = ShowDetail.GetSongList.Request()
+        interactor?.getSongList(request: requestSongList)
     }
     
     func displayDetails(viewModel: ShowDetail.GetDetails.ViewModel)
@@ -125,11 +130,17 @@ class ShowDetailViewController: UIViewController, ShowDetailDisplayLogic
         
         
     }
+    func displaySongList(viewModel: ShowDetail.GetSongList.ViewModel ){
+        
+        self.albumSongs = viewModel.songs
+        self.tableView.reloadData()
+        
+    }
     
-    func getImage()->UIImage?{
+    private func getImage()->UIImage?{
         if let url = URL(string: artWorkUrl!){
             do{
-               let data = try Data(contentsOf: url)
+                let data = try Data(contentsOf: url)
                 return UIImage(data: data)
             }catch let err{
                 print("Error: \(err.localizedDescription)")
@@ -137,4 +148,22 @@ class ShowDetailViewController: UIViewController, ShowDetailDisplayLogic
         }
         return nil
     }
+    
+    
+    // MARK: - Table view data source
+       
+       
+       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+         return albumSongs.count
+       }
+       
+       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        
+        let result = albumSongs[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "songListCell") as? SongListTableViewCell else {
+            return UITableViewCell();
+        }
+        cell.songName.text = result.trackName
+        return cell
+       }
 }

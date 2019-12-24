@@ -11,10 +11,51 @@
 //
 
 import UIKit
+import Alamofire
 
 class ShowDetailWorker
 {
-  func obtenerCancionesAlmbum(){
     
-  }
+    let decoder = JSONDecoder()
+    
+    func getSongList(_ collectionId: Int,completion: @escaping ([Song]?) -> Void){
+        guard let url = URL(string: "https://itunes.apple.com/lookup?") else {
+            completion(nil)
+            return
+        }
+        AF.request(url,
+                   parameters: ["id":collectionId,
+                                "entity":"song",
+                                "media":"music",]
+        ).responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                //Obtengo el objeto Json principal
+                guard let json = value as? [String:AnyObject] else{
+                    completion([])
+                    return
+                }
+                //Obtengo los resultados
+                guard var jsonResults = json["results"] as? [AnyObject] else {
+                    completion([])
+                    return
+                }
+                //Elimino el primer elemento que es un album, no la lista de canciones
+                jsonResults.remove(at: 0)
+                
+                let songs = jsonResults.map({ (anyObject) -> Song in
+                    return Song.init(with: anyObject as? [String : Any])
+                })
+                
+                completion(songs)
+                return
+            case .failure(let error):
+                print(error)
+                completion([])
+                return
+            }
+            
+        }
+        
+    }
 }

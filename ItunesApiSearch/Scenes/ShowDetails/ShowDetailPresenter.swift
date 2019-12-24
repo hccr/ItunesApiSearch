@@ -15,7 +15,7 @@ import UIKit
 protocol ShowDetailPresentationLogic
 {
   func presentDetails(response: ShowDetail.GetDetails.Response)
-  func presentSongList()
+    func presentSongList(response: ShowDetail.GetSongList.Response)
 }
 
 class ShowDetailPresenter: ShowDetailPresentationLogic
@@ -30,18 +30,18 @@ class ShowDetailPresenter: ShowDetailPresentationLogic
     
     
     let viewModel = ShowDetail.GetDetails.ViewModel(
-        album: response.song.collectionName,
-        banda:response.song.artistName,
-        urlImage:"URL",
+        album: response.song.collectionName!,
+        banda:response.song.artistName!,
         nombreCancion: response.song.trackName!,
-        previewUrl: response.song.previewUrl,
+        previewUrl: response.song.previewUrl!,
         artWorkUrl: artWork!
     )
     viewController?.displayDetails(viewModel: viewModel)
  
   }
     
-    func presentSongList(){
-        
+    func presentSongList(response: ShowDetail.GetSongList.Response){
+        let viewModel = ShowDetail.GetSongList.ViewModel(songs: response.songs)
+        viewController?.displaySongList(viewModel: viewModel)
     }
 }

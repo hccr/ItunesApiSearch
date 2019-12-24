@@ -29,10 +29,20 @@ enum ShowDetail
     {
         var album:String
         var banda:String
-        var urlImage:String
         var nombreCancion:String
         var previewUrl:String
         var artWorkUrl:String
     }
   }
+    
+    enum GetSongList{
+        struct Request{
+        }
+        struct Response{
+            var songs: [Song]
+        }
+        struct ViewModel{
+            var songs:[Song]
+        }
+    }
 }
