@@ -17,7 +17,7 @@ protocol SearchDisplayLogic: class
     func displayResults(viewModel: Search.FetchResults.ViewModel)
 }
 
-class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDataSource, UISearchBarDelegate
+class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate
 {
   @IBOutlet weak var searchBar: UISearchBar!
   @IBOutlet weak var tableView: UITableView!
@@ -95,6 +95,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
   func displayResults(viewModel: Search.FetchResults.ViewModel)
   {
     self.displayedResults = viewModel.displayedResults
+    tableView.reloadData()
   }
     
     
@@ -103,7 +104,9 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
     
     
     // MARK: - Table view data source
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        return 72
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -124,13 +127,13 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let query = searchBar.text, query != "", query.count>2 else {
+            displayedResults = []
+            tableView.reloadData()
             return
         }
         
         let request = Search.FetchResults.Request(query: query)
         interactor?.search(request: request)
     }
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int){
-        
-    }
+    
 }

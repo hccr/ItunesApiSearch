@@ -29,14 +29,14 @@ class SearchInteractor: SearchBusinessLogic, SearchDataStore
   
   var results:  [Result]?
   
-  // MARK: Do something
+  // MARK: Do search
   
-  func search(request: Search.FetchResults.Request)
-  {
+  func search(request: Search.FetchResults.Request){
     worker = SearchWorker()
-    let results = worker?.fetchResults(request.query)
-    self.results = results!
-    let response = Search.FetchResults.Response(results: results!)
-    presenter?.presentSearchResults(response: response)
+    worker?.fetchResults(request.query, completion: { (results) -> Void in
+      self.results = results!
+      let response = Search.FetchResults.Response(results: results!)
+      self.presenter?.presentSearchResults(response: response)
+    })
   }
 }

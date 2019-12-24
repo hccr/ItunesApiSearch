@@ -16,12 +16,12 @@ import Alamofire
 class SearchWorker{
     
     let decoder = JSONDecoder()
-    func fetchResults(_ query: String)->[Result]
+    func fetchResults(_ query: String,completion: @escaping ([Result]?) -> Void)
   {
     
     guard let url = URL(string: "https://itunes.apple.com/search?") else {
-      //completion(nil)
-      return []
+      completion(nil)
+      return
     }
     
     AF.request(url,
@@ -31,22 +31,22 @@ class SearchWorker{
                ).responseData { response in
        switch response.result {
         case .success(let value):
-            let req = response.request
             do {
                 let fetchResults = try self.decoder.decode(FetchResults.self , from: value)
-                print(fetchResults.resultCount)
+                completion(fetchResults.results)
             }catch {
                 print("JSONSerialization error:", error)
             }
             
-           // completion(try? SomeRequest(protobuf: value))
+           return
         case .failure(let error):
             print(error)
-          //  completion(nil)
+            completion(nil)
+            return
         }
         
     }
-    return []
+    
   }
    
     

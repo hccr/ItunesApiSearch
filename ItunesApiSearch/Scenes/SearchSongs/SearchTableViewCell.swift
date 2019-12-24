@@ -11,7 +11,6 @@ import UIKit
 class SearchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nombreArtista: UILabel!
-    
     @IBOutlet weak var nombreCancion: UILabel!
     
     override func awakeFromNib() {
