@@ -94,8 +94,10 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
   
   func displayResults(viewModel: Search.FetchResults.ViewModel)
   {
-    self.displayedResults = viewModel.displayedResults
+    displayedResults = viewModel.displayedResults
     tableView.reloadData()
+    
+    
   }
     
     
@@ -115,14 +117,22 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-      let result = displayedResults[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as?SearchTableViewCell else {
-            return UITableViewCell();
+        if displayedResults.count == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoEncontradoCell") as?NoEncontradoTableViewCell else {
+                return UITableViewCell();
+            }
+            return cell
+        }else{
+            let result = displayedResults[indexPath.row]
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as?SearchTableViewCell else {
+                return UITableViewCell();
+            }
+            cell.nombreArtista.text = result.artistName
+            cell.nombreCancion.text = result.trackName
+            
+            return cell
         }
-        cell.nombreArtista.text = result.artistName
-        cell.nombreCancion.text = result.trackName
-        
-        return cell
+      
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

@@ -15,7 +15,7 @@ struct Result: Codable{
     var wrapperType:String
     var kind:String?
     var artistId:Int
-    var collectionId:Int
+    var collectionId:Int?
     var trackId:Int?
     var artistName:String
     var collectionName:String
@@ -28,7 +28,7 @@ struct Result: Codable{
     var previewUrl:String
     var artworkUrl60:String?
     var artworkUrl100:String?
-    var collectionPrice:Double
+    var collectionPrice:Double?
     var trackPrice:Double
     var collectionExplicitness:String
     var trackExplicitness:String

@@ -82,6 +82,26 @@
                                             <outlet property="nombreCancion" destination="jFJ-Uu-Cy8" id="1mq-cp-gXY"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NoEncontradoCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jzp-yp-cO4" customClass="NoEncontradoTableViewCell" customModule="ItunesApiSearch" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="118" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jzp-yp-cO4" id="4Tz-Ky-kOa">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Término no encontrado" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaW-Da-xjR">
+                                                    <rect key="frame" x="118.5" y="11.5" width="177.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iaW-Da-xjR" firstAttribute="centerX" secondItem="4Tz-Ky-kOa" secondAttribute="centerX" id="jMn-md-FZ1"/>
+                                                <constraint firstItem="iaW-Da-xjR" firstAttribute="centerY" secondItem="4Tz-Ky-kOa" secondAttribute="centerY" id="sE7-eb-4bb"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="Z9v-7M-SLW"/>
