@@ -20,6 +20,7 @@ protocol SearchBusinessLogic
 protocol SearchDataStore
 {
   //var name: String { get set }
+    var results:  [Song]? { get }
 }
 
 class SearchInteractor: SearchBusinessLogic, SearchDataStore
@@ -27,7 +28,7 @@ class SearchInteractor: SearchBusinessLogic, SearchDataStore
   var presenter: SearchPresentationLogic?
   var worker: SearchWorker?
   
-  var results:  [Result]?
+  var results:  [Song]?
   
   // MARK: Do search
   

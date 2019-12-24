@@ -7,6 +7,7 @@ target 'ItunesApiSearch' do
 
   # Pods for ItunesApiSearch
   pod 'Alamofire', '~> 5.0.0-rc.3'
+  pod 'SDWebImage', '~> 5.0'
 
   target 'ItunesApiSearchTests' do
     inherit! :search_paths

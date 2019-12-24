@@ -16,7 +16,7 @@ import Alamofire
 class SearchWorker{
     
     let decoder = JSONDecoder()
-    func fetchResults(_ query: String,completion: @escaping ([Result]?) -> Void)
+    func fetchResults(_ query: String,completion: @escaping ([Song]?) -> Void)
   {
     
     guard let url = URL(string: "https://itunes.apple.com/search?") else {
@@ -27,17 +27,17 @@ class SearchWorker{
     AF.request(url,
                parameters: ["term":query,
                             "media":"music",
-                            "limit":"20"]
+                            "limit":"20",
+                            "attribute":"songTerm"]
                ).responseData { response in
        switch response.result {
         case .success(let value):
             do {
-                let fetchResults = try self.decoder.decode(FetchResults.self , from: value)
+                let fetchResults = try self.decoder.decode(FetchSongs.self , from: value)
                 completion(fetchResults.results)
             }catch {
                 print("JSONSerialization error:", error)
             }
-            
            return
         case .failure(let error):
             print(error)
@@ -48,36 +48,5 @@ class SearchWorker{
     }
     
   }
-   
-    
-    /*
-    func fetchAllRooms(completion: @escaping ([Result]?) -> Void) {
-      guard let url = URL(string: "http://localhost:5984/rooms/_all_docs?include_docs=true") else {
-        completion(nil)
-        return
-      }
-      AF.request(url,
-                        method: .get,
-                        parameters: ["include_docs": "true"])
-      .validate()
-      .responseJSON { response in
-        guard response.result.isSuccess else {
-          print("Error while fetching remote rooms: \(String(describing: response.result.error)")
-          completion(nil)
-          return
-        }
-
-        guard let value = response.result.value as? [String: Any],
-          let rows = value["rows"] as? [[String: Any]] else {
-            print("Malformed data received from fetchAllRooms service")
-            completion(nil)
-            return
-        }
-
-        let rooms = rows.flatMap { roomDict in return RemoteRoom(jsonData: roomDict) }
-        completion(rooms)
-      }
-    }
- */
  
 }

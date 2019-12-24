@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Cg-gj-nTP">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search View Controller-->
+        <!--Buscar Canción-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="SearchViewController" customModule="ItunesApiSearch" customModuleProvider="target" sceneMemberID="viewController">
@@ -16,14 +16,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="Buscar" translatesAutoresizingMaskIntoConstraints="NO" id="VaC-If-a6j">
-                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Rmu-EQ-hZH"/>
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2zd-Zh-BMO">
-                                <rect key="frame" x="0.0" y="100" width="414" height="776"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="732"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="90" id="UOT-bC-0Pg" customClass="SearchTableViewCell" customModule="ItunesApiSearch" customModuleProvider="target">
@@ -80,6 +80,7 @@
                                         <connections>
                                             <outlet property="nombreArtista" destination="I05-jr-SFL" id="gVP-fj-g5m"/>
                                             <outlet property="nombreCancion" destination="jFJ-Uu-Cy8" id="1mq-cp-gXY"/>
+                                            <segue destination="6su-9L-6wq" kind="show" identifier="ShowDetail" id="niB-7z-WsT"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NoEncontradoCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jzp-yp-cO4" customClass="NoEncontradoTableViewCell" customModule="ItunesApiSearch" customModuleProvider="target">
@@ -121,12 +122,128 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Buscar Canción" id="a9H-aQ-6D3"/>
                     <connections>
                         <outlet property="searchBar" destination="VaC-If-a6j" id="vK9-T3-gCd"/>
                         <outlet property="tableView" destination="2zd-Zh-BMO" id="cly-1A-SWo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047.8260869565217" y="129.91071428571428"/>
+        </scene>
+        <!--Detalles-->
+        <scene sceneID="wWH-MT-c78">
+            <objects>
+                <viewController storyboardIdentifier="ShowDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6su-9L-6wq" customClass="ShowDetailViewController" customModule="ItunesApiSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Qb-xf-1BP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Vm-Gs-AkG">
+                                <rect key="frame" x="20" y="143.5" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6Vm-Gs-AkG" secondAttribute="height" multiplier="1:1" id="iWm-T1-OSy"/>
+                                    <constraint firstAttribute="width" constant="100" id="mQ8-7e-tWn"/>
+                                    <constraint firstAttribute="height" constant="100" id="tsk-e1-lmS"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ejn-nq-rKD">
+                                <rect key="frame" x="140" y="163.5" width="60" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="cIf-Z2-Uhf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="NombreBanda" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZY-4d-cWb">
+                                <rect key="frame" x="215" y="204.5" width="179" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Banda:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vas-7W-N0o">
+                                <rect key="frame" x="140" y="204.5" width="60" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="94q-0G-atc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="NombreAlbum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m05-TZ-5Ze">
+                                <rect key="frame" x="215" y="163.5" width="179" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre Cancion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gK-Ay-2V5">
+                                <rect key="frame" x="20" y="98" width="374" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRc-O6-Uid">
+                                <rect key="frame" x="146" y="253.5" width="122" height="30"/>
+                                <state key="normal" title="Escuchar Preview"/>
+                                <connections>
+                                    <action selector="playPreview:" destination="6su-9L-6wq" eventType="touchUpInside" id="k4u-rd-KUb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="DRc-O6-Uid" firstAttribute="centerX" secondItem="5Qb-xf-1BP" secondAttribute="centerX" id="H3d-Sk-SO5"/>
+                            <constraint firstItem="vas-7W-N0o" firstAttribute="leading" secondItem="6Vm-Gs-AkG" secondAttribute="trailing" constant="20" id="KXC-zn-CYT"/>
+                            <constraint firstItem="vas-7W-N0o" firstAttribute="top" secondItem="Ejn-nq-rKD" secondAttribute="bottom" constant="20" id="Otv-ht-lRp"/>
+                            <constraint firstItem="m05-TZ-5Ze" firstAttribute="top" secondItem="Ejn-nq-rKD" secondAttribute="top" id="ZWl-wI-97z"/>
+                            <constraint firstItem="1gK-Ay-2V5" firstAttribute="top" secondItem="QEb-Qf-Khc" secondAttribute="top" constant="10" id="b4q-0u-VJZ"/>
+                            <constraint firstItem="DRc-O6-Uid" firstAttribute="top" secondItem="6Vm-Gs-AkG" secondAttribute="bottom" constant="10" id="cMJ-Pc-5iu"/>
+                            <constraint firstItem="Ejn-nq-rKD" firstAttribute="leading" secondItem="6Vm-Gs-AkG" secondAttribute="trailing" constant="20" id="eaa-MF-S6g"/>
+                            <constraint firstItem="iZY-4d-cWb" firstAttribute="leading" secondItem="vas-7W-N0o" secondAttribute="trailing" constant="15" id="kHi-De-B2O"/>
+                            <constraint firstItem="Ejn-nq-rKD" firstAttribute="top" secondItem="6Vm-Gs-AkG" secondAttribute="top" constant="20" id="l8h-HH-vsq"/>
+                            <constraint firstItem="QEb-Qf-Khc" firstAttribute="trailing" secondItem="1gK-Ay-2V5" secondAttribute="trailing" constant="20" id="mRS-uF-h6F"/>
+                            <constraint firstItem="iZY-4d-cWb" firstAttribute="top" secondItem="vas-7W-N0o" secondAttribute="top" id="nGt-mT-7dZ"/>
+                            <constraint firstItem="QEb-Qf-Khc" firstAttribute="trailing" secondItem="m05-TZ-5Ze" secondAttribute="trailing" constant="20" id="o1a-CS-hxi"/>
+                            <constraint firstItem="QEb-Qf-Khc" firstAttribute="trailing" secondItem="iZY-4d-cWb" secondAttribute="trailing" constant="20" id="s5V-4m-gcS"/>
+                            <constraint firstItem="6Vm-Gs-AkG" firstAttribute="top" secondItem="1gK-Ay-2V5" secondAttribute="bottom" constant="20" id="tKz-Vu-ecg"/>
+                            <constraint firstItem="1gK-Ay-2V5" firstAttribute="leading" secondItem="QEb-Qf-Khc" secondAttribute="leading" constant="20" id="wC7-WO-zsM"/>
+                            <constraint firstItem="m05-TZ-5Ze" firstAttribute="leading" secondItem="Ejn-nq-rKD" secondAttribute="trailing" constant="15" id="yKc-Kc-Mhc"/>
+                            <constraint firstItem="6Vm-Gs-AkG" firstAttribute="leading" secondItem="QEb-Qf-Khc" secondAttribute="leading" constant="20" id="yeg-Xm-2Bu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QEb-Qf-Khc"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Detalles" id="LVs-Cc-9JD">
+                        <barButtonItem key="backBarButtonItem" title="Volver" id="qck-Ab-QE6"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="albumName" destination="m05-TZ-5Ze" id="7Rp-nH-q26"/>
+                        <outlet property="bandName" destination="iZY-4d-cWb" id="udY-Nb-JRZ"/>
+                        <outlet property="imageView" destination="6Vm-Gs-AkG" id="XaO-Eb-7j3"/>
+                        <outlet property="nombreCancion" destination="1gK-Ay-2V5" id="zei-ck-6NF"/>
+                        <outlet property="playButton" destination="DRc-O6-Uid" id="l9x-XI-UAK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JbV-sc-Gno" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2028.985507246377" y="-76.339285714285708"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5el-da-5ie">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Cg-gj-nTP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JXX-Ct-k6x">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="5kR-MC-ctK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dLS-Hl-XqZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="129.91071428571428"/>
         </scene>

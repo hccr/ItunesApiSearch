@@ -26,7 +26,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
   var interactor: SearchBusinessLogic?
   var router: (NSObjectProtocol & SearchRoutingLogic & SearchDataPassing)?
     
-  var displayedResults: [Result] = []
+  var displayedSongs: [Song] = []
 
   // MARK: Object lifecycle
   
@@ -77,24 +77,13 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    doSomething()
   }
   
-  // MARK: Do something
   
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-   /*
-    let request = Search.Something.Request()
-    interactor?.doSomething(request: request)
- */
-  }
   
   func displayResults(viewModel: Search.FetchResults.ViewModel)
   {
-    displayedResults = viewModel.displayedResults
+    displayedSongs = viewModel.displayedResults
     tableView.reloadData()
     
     
@@ -112,18 +101,18 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-      return displayedResults.count
+      return displayedSongs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        if displayedResults.count == 0 {
+        if displayedSongs.count == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoEncontradoCell") as?NoEncontradoTableViewCell else {
                 return UITableViewCell();
             }
             return cell
         }else{
-            let result = displayedResults[indexPath.row]
+            let result = displayedSongs[indexPath.row]
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as?SearchTableViewCell else {
                 return UITableViewCell();
             }
@@ -137,7 +126,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let query = searchBar.text, query != "", query.count>2 else {
-            displayedResults = []
+            displayedSongs = []
             tableView.reloadData()
             return
         }

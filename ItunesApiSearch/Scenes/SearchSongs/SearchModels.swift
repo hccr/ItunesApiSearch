@@ -21,11 +21,11 @@ enum Search
         }
         struct Response
         {
-          var results: [Result]
+          var results: [Song]
         }
         struct ViewModel
         { 
-          var displayedResults: [Result]
+          var displayedResults: [Song]
         }
         
     }
