@@ -151,13 +151,13 @@ class ShowDetailViewController: UIViewController, ShowDetailDisplayLogic, UITabl
     
     
     // MARK: - Table view data source
-       
-       
-       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-         return albumSongs.count
-       }
-       
-       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return albumSongs.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         let result = albumSongs[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "songListCell") as? SongListTableViewCell else {
@@ -165,5 +165,5 @@ class ShowDetailViewController: UIViewController, ShowDetailDisplayLogic, UITabl
         }
         cell.songName.text = result.trackName
         return cell
-       }
+    }
 }

@@ -14,30 +14,30 @@ import UIKit
 
 protocol SearchBusinessLogic
 {
-  func search(request: Search.FetchResults.Request)
+    func search(request: Search.FetchResults.Request)
 }
 
 protocol SearchDataStore
 {
-  //var name: String { get set }
+    //var name: String { get set }
     var results:  [Song]? { get }
 }
 
 class SearchInteractor: SearchBusinessLogic, SearchDataStore
 {
-  var presenter: SearchPresentationLogic?
-  var worker: SearchWorker?
-  
-  var results:  [Song]?
-  
-  // MARK: Do search
-  
-  func search(request: Search.FetchResults.Request){
-    worker = SearchWorker()
-    worker?.fetchResults(request.query, completion: { (results) -> Void in
-      self.results = results!
-      let response = Search.FetchResults.Response(results: results!)
-      self.presenter?.presentSearchResults(response: response)
-    })
-  }
+    var presenter: SearchPresentationLogic?
+    var worker: SearchWorker?
+    
+    var results:  [Song]?
+    
+    // MARK: Do search
+    
+    func search(request: Search.FetchResults.Request){
+        worker = SearchWorker()
+        worker?.fetchResults(request.query, completion: { (results) -> Void in
+            self.results = results!
+            let response = Search.FetchResults.Response(results: results!)
+            self.presenter?.presentSearchResults(response: response)
+        })
+    }
 }

@@ -17,40 +17,39 @@ class SearchWorker{
     
     let decoder = JSONDecoder()
     func fetchResults(_ query: String,completion: @escaping ([Song]?) -> Void)
-  {
-    
-    guard let url = URL(string: "https://itunes.apple.com/search?") else {
-      completion(nil)
-      return
-    }
-    
-    AF.request(url,
-               parameters: ["term":query,
-                            "media":"music",
-                            "limit":"20",
-                            "attribute":"songTerm"]
-               ).responseData { response in
-       switch response.result {
-        case .success(let value):
-            do {
-                let fetchResults = try self.decoder.decode(FetchSongs.self , from: value)
-                // se filtran los resultados para evitar que vengan caciones sin Album
-                let response = fetchResults.results.filter({(song) -> Bool in
-                    return song.collectionId != nil
-                })
-                completion(response)
-            }catch {
-                print("JSONSerialization error:", error)
-            }
-           return
-        case .failure(let error):
-            print(error)
+    {
+        
+        guard let url = URL(string: "https://itunes.apple.com/search?") else {
             completion(nil)
             return
         }
         
+        AF.request(url,
+                   parameters: ["term":query,
+                                "media":"music",
+                                "limit":"20",
+                                "attribute":"songTerm"]
+        ).responseData { response in
+            switch response.result {
+            case .success(let value):
+                do {
+                    let fetchResults = try self.decoder.decode(FetchSongs.self , from: value)
+                    // se filtran los resultados para evitar que vengan caciones sin Album
+                    let response = fetchResults.results.filter({(song) -> Bool in
+                        return song.collectionId != nil
+                    })
+                    completion(response)
+                }catch {
+                    print("JSONSerialization error:", error)
+                }
+                return
+            case .failure(let error):
+                print(error)
+                completion(nil)
+                return
+            }
+        }
+        
     }
     
-  }
- 
 }

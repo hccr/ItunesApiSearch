@@ -19,13 +19,13 @@ protocol SearchPresentationLogic
 
 class SearchPresenter: SearchPresentationLogic
 {
-  weak var viewController: SearchDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSearchResults(response: Search.FetchResults.Response)
-  {
-    let viewModel = Search.FetchResults.ViewModel(displayedResults: response.results)
-    viewController?.displayResults(viewModel:viewModel)
-  }
+    weak var viewController: SearchDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentSearchResults(response: Search.FetchResults.Response)
+    {
+        let viewModel = Search.FetchResults.ViewModel(displayedResults: response.results)
+        viewController?.displayResults(viewModel:viewModel)
+    }
 }

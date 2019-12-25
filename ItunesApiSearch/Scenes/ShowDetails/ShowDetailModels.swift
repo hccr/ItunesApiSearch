@@ -14,26 +14,26 @@ import UIKit
 
 enum ShowDetail
 {
-  // MARK: Use cases
-  
-  enum GetDetails
-  {
-    struct Request
+    // MARK: Use cases
+    
+    enum GetDetails
     {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var song: Song
+        }
+        struct ViewModel
+        {
+            var album:String
+            var banda:String
+            var nombreCancion:String
+            var previewUrl:String
+            var artWorkUrl:String
+        }
     }
-    struct Response
-    {
-        var song: Song
-    }
-    struct ViewModel
-    {
-        var album:String
-        var banda:String
-        var nombreCancion:String
-        var previewUrl:String
-        var artWorkUrl:String
-    }
-  }
     
     enum GetSongList{
         struct Request{
