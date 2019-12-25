@@ -34,7 +34,11 @@ class SearchWorker{
         case .success(let value):
             do {
                 let fetchResults = try self.decoder.decode(FetchSongs.self , from: value)
-                completion(fetchResults.results)
+                // se filtran los resultados para evitar que vengan caciones sin Album
+                let response = fetchResults.results.filter({(song) -> Bool in
+                    return song.collectionId != nil
+                })
+                completion(response)
             }catch {
                 print("JSONSerialization error:", error)
             }
