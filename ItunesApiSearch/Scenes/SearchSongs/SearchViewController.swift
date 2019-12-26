@@ -17,10 +17,12 @@ protocol SearchDisplayLogic: class
     func displayResults(viewModel: Search.FetchResults.ViewModel)
 }
 
-class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate
-{
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
+class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate{
+    
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
     
     
     var interactor: SearchBusinessLogic?
@@ -28,6 +30,10 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
     
     var displayedSongs: [Song] = []
     var searchedText = "";
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    
     
     // MARK: Object lifecycle
     
@@ -63,11 +69,30 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
     
     // MARK: Routing
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
             if let router = router, router.responds(to: selector) {
+                //Antes de pasar a la proxima vista guardo la info
+                let selectedRow = tableView.indexPathForSelectedRow?.row
+                
+                let song = displayedSongs[selectedRow!]
+                
+                let songMO = SongMO(entity: SongMO.entity(), insertInto: context)
+                songMO.artistId = Int32(song.artistId!)
+                songMO.artistName = song.artistName
+                songMO.artworkUrl100 = song.artworkUrl100
+                songMO.artworkUrl60 = song.artworkUrl60
+                songMO.collectionId = Int32(song.collectionId!)
+                songMO.collectionName = song.collectionName
+                songMO.collectionViewUrl = song.collectionViewUrl
+                songMO.previewUrl = song.previewUrl
+                songMO.trackId = Int32(song.trackId!)
+                songMO.trackName = song.trackName
+                songMO.trackViewUrl = song.trackViewUrl
+                
+                appDelegate.saveContext()
+                
                 router.perform(selector, with: segue)
             }
         }
@@ -80,6 +105,16 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        do{
+            let busquedaAnterior = try context.fetch(SongMO.fetchRequest())
+            print("Busqueda correcta")
+        }catch let error as NSError {
+            print("No se pudo obtener busqueda anterior. \(error), \(error.localizedDescription)")
+        }
+    }
     
     
     func displayResults(viewModel: Search.FetchResults.ViewModel)
@@ -89,11 +124,6 @@ class SearchViewController: UIViewController, SearchDisplayLogic, UITableViewDat
         
         
     }
-    
-    
-    
-    
-    
     
     // MARK: - Table view data source
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{

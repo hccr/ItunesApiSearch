@@ -12,13 +12,11 @@
 
 import UIKit
 
-@objc protocol SearchRoutingLogic
-{
+@objc protocol SearchRoutingLogic{
     func routeToShowDetail(segue: UIStoryboardSegue?)
 }
 
-protocol SearchDataPassing
-{
+protocol SearchDataPassing{
     var dataStore: SearchDataStore? { get }
 }
 
