@@ -56,6 +56,10 @@ struct Song: Codable{
            self.artworkUrl60 = artworkUrl60
            self.artworkUrl100 = artworkUrl100
     }
+    
+    init(){
+        
+    }
 }
 struct Album{
     var artistId:Int

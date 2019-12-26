@@ -43,8 +43,7 @@ class SearchRouter: NSObject, SearchRoutingLogic, SearchDataPassing
     
     // MARK: Navigation
     
-    func navigateToShowDetail(source: SearchViewController, destination: ShowDetailViewController)
-    {
+    func navigateToShowDetail(source: SearchViewController, destination: ShowDetailViewController){
         source.show(destination, sender: nil)
     }
     
@@ -52,9 +51,7 @@ class SearchRouter: NSObject, SearchRoutingLogic, SearchDataPassing
     // MARK: Passing data
     
     
-    func passDataToShowDetail(source: SearchDataStore, destination: inout ShowDetailDataStore)
-    {
-        let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
-        destination.song = source.results?[selectedRow!]
+    func passDataToShowDetail(source: SearchDataStore, destination: inout ShowDetailDataStore)    {
+        destination.song = viewController?.selectedSong!
     }
 }

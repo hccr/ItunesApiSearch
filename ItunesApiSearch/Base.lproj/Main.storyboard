@@ -106,6 +106,27 @@
                                             <outlet property="textoNoEncontrado" destination="iaW-Da-xjR" id="iij-cN-Bnp"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SeparatorTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SeparatorTableViewCell" rowHeight="31" id="AsL-TI-3zn" customClass="SeparatorTableViewCell" customModule="ItunesApiSearch" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="161.5" width="414" height="31"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AsL-TI-3zn" id="J76-RM-f4f">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Búsquedas anteriores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Gt-BX-VNv">
+                                                    <rect key="frame" x="107.5" y="4" width="199.5" height="23"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8Gt-BX-VNv" firstAttribute="centerX" secondItem="J76-RM-f4f" secondAttribute="centerX" id="BTX-Mo-u58"/>
+                                                <constraint firstItem="8Gt-BX-VNv" firstAttribute="centerY" secondItem="J76-RM-f4f" secondAttribute="centerY" id="VfU-kc-8yd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="Z9v-7M-SLW"/>
@@ -206,13 +227,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NombreCancionAlbum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBb-FU-6aP">
-                                                    <rect key="frame" x="20" y="11" width="173" height="21"/>
+                                                    <rect key="frame" x="20" y="11" width="293.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="escuchar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKn-aM-p5E">
-                                                    <rect key="frame" x="323" y="11.5" width="71" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="escuchar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKn-aM-p5E">
+                                                    <rect key="frame" x="323.5" y="11.5" width="70.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -220,6 +241,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="CBb-FU-6aP" firstAttribute="top" secondItem="BRb-3X-cRU" secondAttribute="top" constant="11" id="Hmg-q5-tnb"/>
+                                                <constraint firstItem="eKn-aM-p5E" firstAttribute="leading" secondItem="CBb-FU-6aP" secondAttribute="trailing" constant="10" id="IWE-jF-bMn"/>
                                                 <constraint firstItem="CBb-FU-6aP" firstAttribute="leading" secondItem="BRb-3X-cRU" secondAttribute="leading" constant="20" id="PnI-C7-hPc"/>
                                                 <constraint firstAttribute="trailing" secondItem="eKn-aM-p5E" secondAttribute="trailing" constant="20" id="XCW-fD-dlH"/>
                                                 <constraint firstItem="eKn-aM-p5E" firstAttribute="centerY" secondItem="BRb-3X-cRU" secondAttribute="centerY" id="cVJ-S7-NpZ"/>
